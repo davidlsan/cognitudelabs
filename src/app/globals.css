@@ -43,3 +43,21 @@
   background-color: white;
   color: black;
 }
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #5BA3D0;
+  }
+  main {
+    background-color: #5BA3D0;
+  }
+  /* Change footer text to baby blue in light mode */
+  footer,
+  footer * {
+    color: #5BA3D0 !important;
+  }
+  /* Change text-white/50 to text-white/70 in light mode */
+  [class*="text-white/50"] {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+}

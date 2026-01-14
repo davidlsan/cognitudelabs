@@ -56,7 +56,7 @@ export default function Home() {
       };
 
   return (
-    <main className="h-dvh flex flex-col w-full overflow-hidden relative">
+    <main className="min-h-dvh sm:h-dvh flex flex-col w-full overflow-y-auto sm:overflow-hidden relative pb-20 sm:pb-0">
       <AnimatePresence>
         {!isReady && (
           <motion.div
@@ -156,7 +156,7 @@ export default function Home() {
       </motion.div>
       <motion.div
         {...cloudAnimation}
-        className="absolute -bottom-[20vh] left-0 right-0 h-[80vh] z-0"
+        className="absolute -bottom-[40vh] sm:-bottom-[20vh] left-0 right-0 h-[80vh] z-0"
       >
         <CloudSceneWrapper onReady={handleCloudsReady} />
       </motion.div>

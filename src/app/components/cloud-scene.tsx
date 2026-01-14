@@ -3,19 +3,21 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Cloud, Clouds } from '@react-three/drei';
 import { MeshLambertMaterial } from 'three';
-import { useRef, useMemo, memo, useEffect } from 'react';
+import { useRef, useMemo, memo, useEffect, useState } from 'react';
 import * as THREE from 'three';
 
 const AnimatedCloud = memo(function AnimatedCloud({ 
   seed, 
   position, 
   opacity,
-  speed 
+  speed,
+  isLightMode
 }: { 
   seed: number; 
   position: [number, number, number]; 
   opacity: number;
   speed: number;
+  isLightMode: boolean;
 }) {
   const cloudRef = useRef<THREE.Group>(null);
   const initialPosition = useRef(position);
@@ -32,6 +34,9 @@ const AnimatedCloud = memo(function AnimatedCloud({
     }
   });
 
+  // Increase opacity for light mode to make clouds more visible
+  const adjustedOpacity = isLightMode ? Math.min(opacity * 1.3, 1) : opacity;
+
   return (
     <group ref={cloudRef} position={initialPosition.current}>
       <Cloud
@@ -40,7 +45,7 @@ const AnimatedCloud = memo(function AnimatedCloud({
         bounds={[200, 8, 15]}
         volume={60}
         color="white"
-        opacity={opacity}
+        opacity={adjustedOpacity}
         speed={speed}
         fade={200}
       />
@@ -65,7 +70,7 @@ function ReadyNotifier({ onReady }: { onReady?: () => void }) {
   return null;
 }
 
-const AnimatedCloudGroup = memo(function AnimatedCloudGroup() {
+const AnimatedCloudGroup = memo(function AnimatedCloudGroup({ isLightMode }: { isLightMode: boolean }) {
   const cloudsRef = useRef<THREE.Group>(null);
 
   // Subtle overall rotation animation
@@ -89,6 +94,7 @@ const AnimatedCloudGroup = memo(function AnimatedCloudGroup() {
           position={[0, -18, 0]}
           opacity={0.95}
           speed={0.2}
+          isLightMode={isLightMode}
         />
         {/* Second layer for extra density */}
         <AnimatedCloud
@@ -96,6 +102,7 @@ const AnimatedCloudGroup = memo(function AnimatedCloudGroup() {
           position={[0, -18, 3]}
           opacity={0.9}
           speed={0.15}
+          isLightMode={isLightMode}
         />
       </Clouds>
     </group>
@@ -103,10 +110,30 @@ const AnimatedCloudGroup = memo(function AnimatedCloudGroup() {
 });
 
 export default function CloudScene({ onReady }: { onReady?: () => void }) {
+  const [isLightMode, setIsLightMode] = useState(false);
+
+  useEffect(() => {
+    // Check initial color scheme
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    setIsLightMode(mediaQuery.matches);
+
+    // Listen for changes
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsLightMode(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
   const canvasConfig = useMemo(() => ({
     camera: { position: [0, 12, 25] as [number, number, number], fov: 90 },
     gl: { alpha: true, antialias: true, preserveDrawingBuffer: true },
   }), []);
+
+  // Increase lighting intensity for light mode to make clouds brighter
+  const ambientIntensity = isLightMode ? 1.2 : 0.7;
+  const directionalIntensity = isLightMode ? 1.5 : 1;
 
   return (
     <div className="w-full h-full min-h-[300px] relative">
@@ -115,9 +142,9 @@ export default function CloudScene({ onReady }: { onReady?: () => void }) {
         gl={canvasConfig.gl}
         style={{ background: 'transparent' }}
       >
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <AnimatedCloudGroup />
+        <ambientLight intensity={ambientIntensity} />
+        <directionalLight position={[10, 10, 5]} intensity={directionalIntensity} />
+        <AnimatedCloudGroup isLightMode={isLightMode} />
         <ReadyNotifier onReady={onReady} />
       </Canvas>
     </div>
