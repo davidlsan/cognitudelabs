@@ -16,8 +16,32 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-dark.svg", type: "image/svg+xml", media: "(prefers-color-scheme: dark)" },
+      {
+        url: "/favicon-dark.svg",
+        type: "image/svg+xml",
+        media: "(prefers-color-scheme: dark)",
+      },
     ],
+  },
+  openGraph: {
+    title: "Cognitude Labs",
+    description: "Applied AI for understanding",
+    url: "https://www.cognitudelabs.com",
+    siteName: "Cognitude Labs",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Cognitude Labs - Applied AI for understanding",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cognitude Labs",
+    description: "Applied AI for understanding",
+    images: ["/og-image.png"],
   },
 };
 
@@ -28,7 +52,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${crimsonPro.variable} ${GeistMono.variable} antialiased`}>
+      <body
+        className={`${crimsonPro.variable} ${GeistMono.variable} antialiased`}
+      >
         {children}
       </body>
     </html>
