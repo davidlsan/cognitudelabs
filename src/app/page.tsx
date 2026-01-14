@@ -24,7 +24,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.75, ease: [0, 0, 0.2, 1] },
+    transition: { duration: 0.75, ease: [0, 0, 0.2, 1] as const },
   },
 };
 
@@ -41,7 +41,7 @@ export default function Home() {
     : {
         initial: { opacity: 0, y: 8, filter: 'blur(4px)' },
         animate: isReady ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined,
-        transition: { duration: 0.75, ease: [0, 0, 0.2, 1] }
+        transition: { duration: 0.75, ease: [0, 0, 0.2, 1] as const }
       };
 
   return (
@@ -52,7 +52,7 @@ export default function Home() {
             key="loader"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] }}
+            transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] as const }}
             className="absolute inset-0 z-50 flex items-center justify-center bg-[#151515]"
           >
             <Image
@@ -70,26 +70,29 @@ export default function Home() {
         variants={prefersReducedMotion ? undefined : containerVariants}
         initial="hidden"
         animate={isReady ? "visible" : "hidden"}
-        className="max-w-135 w-full flex items-center mx-auto flex-col mt-32 relative z-10"
+        className="max-w-135 w-full flex items-center mx-auto flex-col mt-16 sm:mt-24 md:mt-32 px-4 sm:px-6 relative z-10"
       >
         <motion.header
           variants={prefersReducedMotion ? undefined : itemVariants}
-          className="flex w-full justify-between items-center pb-4 border-b"
+          className="flex w-full flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 pb-4 border-b"
         >
-          <Image
-            src={"CognitudeLabs.svg"}
-            alt="Cognitude Labs Logo"
-            width={175}
-            height={175}
-          />
-          <div className="text-sm font-mono font-medium text-white/50 text-end">
+          <div className="w-32 sm:w-44">
+            <Image
+              src={"CognitudeLabs.svg"}
+              alt="Cognitude Labs Logo"
+              width={175}
+              height={175}
+              className="w-full h-auto"
+            />
+          </div>
+          <div className="text-xs sm:text-sm font-mono font-medium text-white/50 text-center sm:text-end">
             STATES. AGENTS. MEMORY. <br /> ARTIFICIAL INTELLIGENCE.
           </div>
         </motion.header>
         <div className="flex flex-col gap-4 mt-4">
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
-            className="text-white/50 text-base"
+            className="text-white/50 text-lg leading-[120%]"
           >
             <span className="text-white">Cognitude Labs</span> is an applied AI
             company focused on education—a massive market where millions of
@@ -100,7 +103,7 @@ export default function Home() {
           </motion.p>
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
-            className="text-white/50 text-base"
+            className="text-white/50 text-lg leading-[120%]"
           >
             Most AI tools are stateless assistants—they forget context, can't
             integrate across systems, and provide generic responses. We build
@@ -110,7 +113,7 @@ export default function Home() {
           </motion.p>
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
-            className="text-white/50 text-base"
+            className="text-white/50 text-lg leading-[120%]"
           >
             Cognitude Labs was founded by a team of engineers and researchers
             from Western Norway University of Applied Sciences.
@@ -130,8 +133,8 @@ export default function Home() {
       >
         <CloudSceneWrapper onReady={handleCloudsReady} />
       </motion.div>
-      <footer className="absolute bottom-0 left-0 right-0 z-10">
-        <div className="max-w-135 mx-auto">
+      <footer className="absolute bottom-0 left-0 right-0 z-10 pb-[env(safe-area-inset-bottom)]">
+        <div className="max-w-135 mx-auto px-4 sm:px-6">
           <Footer />
         </div>
       </footer>

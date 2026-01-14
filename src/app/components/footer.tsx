@@ -1,10 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="flex justify-between items-center py-8 w-full">
-      <p className="text-sm text-black">
+    <footer className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 py-6 sm:py-8 w-full">
+      <p className="text-xs sm:text-sm text-black">
         © 2026, All rights reserved
       </p>
-      <nav className="flex gap-8 text-sm text-black [&>a:hover]:text-black/50 [&>a:hover]:bg-black/10">
+      <nav className="flex gap-4 sm:gap-8 text-xs sm:text-sm text-black [&>a:hover]:text-black/50 [&>a:hover]:bg-black/10">
         <a
           href="https://twitter.com/cognitudelabs"
           className="hover:text-black transition-colors rounded-sm px-2 h-8 flex items-center"
