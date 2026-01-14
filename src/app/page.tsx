@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useCallback } from "react";
 import Image from "next/image";
@@ -19,18 +19,27 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 8, filter: 'blur(4px)' },
+  hidden: { opacity: 0, y: 8, filter: "blur(4px)" },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
+    filter: "blur(0px)",
     transition: { duration: 0.75, ease: [0, 0, 0.2, 1] as const },
   },
 };
 
+const founders = [
+  { name: "David Lunde Sandvik, ", url: "https://www.linkedin.com/in/david-lunde-sandvik-3b4473363/" },
+  { name: "Andreas Tunes Huse, ", url: "https://www.linkedin.com/in/andreas-huse-9ab151233/" },
+  { name: "Jarle Aragon Halden, ", url: "https://www.linkedin.com/in/jarle-aragon-halden-4a9599291/" },
+  { name: "Andreas Lind Benestad, ", url: "https://www.linkedin.com/in/andreas-lind-benestad-0059ab359/" },
+  { name: "Thomas Otterå Årland", url: "https://www.linkedin.com/in/thomas-%C3%A5rland-71a206334/" },
+];
+
 export default function Home() {
   const prefersReducedMotion = useReducedMotion();
   const [isReady, setIsReady] = useState(false);
+  const [hoveredName, setHoveredName] = useState<string | null>(null);
 
   const handleCloudsReady = useCallback(() => {
     setIsReady(true);
@@ -39,9 +48,11 @@ export default function Home() {
   const cloudAnimation = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 8, filter: 'blur(4px)' },
-        animate: isReady ? { opacity: 1, y: 0, filter: 'blur(0px)' } : undefined,
-        transition: { duration: 0.75, ease: [0, 0, 0.2, 1] as const }
+        initial: { opacity: 0, y: 8, filter: "blur(4px)" },
+        animate: isReady
+          ? { opacity: 1, y: 0, filter: "blur(0px)" }
+          : undefined,
+        transition: { duration: 0.75, ease: [0, 0, 0.2, 1] as const },
       };
 
   return (
@@ -94,29 +105,45 @@ export default function Home() {
             variants={prefersReducedMotion ? undefined : itemVariants}
             className="text-white/50 text-lg leading-[120%]"
           >
-            <span className="text-white">Cognitude Labs</span> is an applied AI
-            company focused on education—a massive market where millions of
-            people face daily uncertainty and existing tools are primitive. We
-            develop autonomous agents that integrate across systems, maintain
-            context, and adapt to individual learners to solve the fundamental
-            problem of not knowing.
+            <span className="text-white">Cognitude Labs</span> is an applied AI research company building autonomous systems for learning. We build agents that integrate across systems, maintain persistent context, and adapt to individual learners to reduce epistemic uncertainty.
           </motion.p>
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
             className="text-white/50 text-lg leading-[120%]"
           >
-            Most AI tools are stateless assistants—they forget context, can't
-            integrate across systems, and provide generic responses. We build
-            agents that maintain persistent understanding, connect to the tools
-            learners actually use, and adapt their guidance based on outcomes.
-            This is the difference between a chatbot and an autonomous agent.
+            In education, most AI tools remain stateless assistants: they forget context, operate
+            in isolation, and produce generic outputs. We build autonomous
+            agents with persistent state, cross-system integration, and
+            outcome-driven adaptation. This distinction defines the gap between
+            chat interfaces and agentic systems.
           </motion.p>
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
             className="text-white/50 text-lg leading-[120%]"
           >
-            Cognitude Labs was founded by a team of engineers and researchers
+            Cognitude Labs was founded by a team of engineers and enthusiasts
             from Western Norway University of Applied Sciences.
+          </motion.p>
+          <motion.p
+            variants={prefersReducedMotion ? undefined : itemVariants}
+            className="text-xl text-white leading-[120%]"
+          >
+            {founders.map((founder, index) => (
+              <span key={founder.name}>
+                <a
+                  href={founder.url}
+                  onMouseEnter={() => setHoveredName(founder.name)}
+                  onMouseLeave={() => setHoveredName(null)}
+                  className={`transition-colors duration-100 ${
+                    hoveredName && hoveredName !== founder.name
+                      ? "text-white/50"
+                      : "text-white"
+                  }`}
+                >
+                  {founder.name}
+                </a>
+              </span>
+            ))}
           </motion.p>
           <motion.a
             variants={prefersReducedMotion ? undefined : itemVariants}
