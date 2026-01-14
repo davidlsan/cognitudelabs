@@ -1,25 +1,25 @@
 export default function Footer() {
   return (
     <footer className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 py-6 sm:py-8 w-full">
-      <p className="text-xs sm:text-sm text-black">
+      <p className="text-xs sm:text-sm text-white text-shadow-xs">
         © 2026, All rights reserved
       </p>
-      <nav className="flex gap-4 sm:gap-8 text-xs sm:text-sm text-black [&>a:hover]:text-black/50 [&>a:hover]:bg-black/10">
+      <nav className="flex gap-4 sm:gap-8 text-xs sm:text-sm text-white text-shadow-xs [&>a:hover]:text-white/50">
         <a
           href="https://twitter.com/cognitudelabs"
-          className="hover:text-black transition-colors rounded-sm px-2 h-8 flex items-center"
+          className="hover:text-black transition-colors rounded-sm flex items-center"
         >
           X/Twitter
         </a>
         <a
           href="https://linkedin.com/company/cognitudelabs"
-          className="hover:text-black transition-colors rounded-sm px-2 h-8 flex items-center"
+          className="hover:text-black transition-colors rounded-sm flex items-center"
         >
           LinkedIn
         </a>
         <a
-          href="mailto:contact@cognitudelabs.com"
-          className="hover:text-black transition-colors rounded-sm px-2 h-8 flex items-center"
+          href="mailto:davidcognitude@gmail.com"
+          className="hover:text-black transition-colors rounded-sm flex items-center"
         >
           Contact
         </a>
