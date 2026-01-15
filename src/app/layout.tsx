@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Cognitude Labs",
   description:
     "An applied AI company focused on education, developing autonomous agents that integrate across systems, maintain context, and adapt to individual learners.",
+  keywords: "Cognitude Labs, Applied AI, Education, Autonomous Agents, AI, Machine Learning, Natural Language Processing, NLP, Context, Learning, Understanding, CognitudeLabs, cognitudelabs",
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },

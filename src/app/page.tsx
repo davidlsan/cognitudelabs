@@ -156,7 +156,7 @@ export default function Home() {
       </motion.div>
       <motion.div
         {...cloudAnimation}
-        className="absolute -bottom-[40vh] sm:-bottom-[20vh] left-0 right-0 h-[80vh] z-0"
+        className="absolute -bottom-[15vh] sm:-bottom-[20vh] left-0 right-0 h-[80vh] z-0"
       >
         <CloudSceneWrapper onReady={handleCloudsReady} />
       </motion.div>
