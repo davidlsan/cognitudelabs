@@ -35,12 +35,8 @@ export const metadata: Metadata = {
       // Google requires rel="icon" with href pointing to a stable URL
       { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon-192x192.ico", sizes: "192x192", type: "image/x-icon" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      {
-        url: "/favicon-dark.svg",
-        type: "image/svg+xml",
-        media: "(prefers-color-scheme: dark)",
-      },
+      { url: "/favicon-96x96.ico", sizes: "96x96", type: "image/x-icon" },
+      { url: "/favicon-48x48.ico", sizes: "48x48", type: "image/x-icon" },
     ],
     apple: [
       { url: "/favicon-192x192.ico", sizes: "192x192" },
