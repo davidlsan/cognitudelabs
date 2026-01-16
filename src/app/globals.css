@@ -39,9 +39,15 @@
   }
 }
 
+
+
 ::selection {
   background-color: white;
   color: black;
+}
+
+br::selection {
+  background-color: transparent !important;
 }
 
 @media (prefers-color-scheme: light) {

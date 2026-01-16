@@ -25,14 +25,22 @@ const AnimatedCloud = memo(function AnimatedCloud({
   useFrame((state) => {
     if (cloudRef.current) {
       const time = state.clock.elapsedTime;
-      // Slow horizontal drift
+      // Constrained horizontal drift to prevent clipping
       cloudRef.current.position.x =
-        initialPosition.current[0] + Math.sin(time * 0.05 + seed) * 10;
+        initialPosition.current[0] + 
+        Math.sin(time * 0.12 + seed) * 8 +
+        Math.cos(time * 0.08 + seed * 1.3) * 4;
       // Subtle vertical floating
       cloudRef.current.position.y =
-        initialPosition.current[1] + Math.sin(time * 0.08 + seed * 0.5) * 2;
-      // Gentle rotation
-      cloudRef.current.rotation.z = Math.sin(time * 0.03 + seed) * 0.1;
+        initialPosition.current[1] + 
+        Math.sin(time * 0.15 + seed * 0.5) * 2 +
+        Math.cos(time * 0.1 + seed * 0.7) * 1;
+      // Minimal rotation to keep clouds flatter
+      cloudRef.current.rotation.z = 
+        Math.sin(time * 0.08 + seed) * 0.05 +
+        Math.cos(time * 0.06 + seed * 0.5) * 0.02;
+      // Keep scale constant to maintain flat appearance
+      cloudRef.current.scale.set(1, 1, 1);
     }
   });
 
@@ -83,11 +91,13 @@ const AnimatedCloudGroup = memo(function AnimatedCloudGroup({
 }) {
   const cloudsRef = useRef<THREE.Group>(null);
 
-  // Subtle overall rotation animation
+  // Minimal overall rotation to keep clouds flatter
   useFrame((state) => {
     if (cloudsRef.current) {
+      const time = state.clock.elapsedTime;
       cloudsRef.current.rotation.y =
-        Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
+        Math.sin(time * 0.1) * 0.03 +
+        Math.cos(time * 0.08) * 0.01;
     }
   });
 
@@ -107,7 +117,7 @@ const AnimatedCloudGroup = memo(function AnimatedCloudGroup({
           seed={42}
           position={[0, cloudYPosition, 0]}
           opacity={isLightMode ? 1.0 : 0.95}
-          speed={0.2}
+          speed={0.4}
           isLightMode={isLightMode}
         />
         {/* Second layer for extra density */}
@@ -115,7 +125,7 @@ const AnimatedCloudGroup = memo(function AnimatedCloudGroup({
           seed={99}
           position={[0, cloudYPosition, 3]}
           opacity={isLightMode ? 0.98 : 0.9}
-          speed={0.15}
+          speed={0.35}
           isLightMode={isLightMode}
         />
       </Clouds>
