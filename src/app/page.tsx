@@ -33,7 +33,7 @@ const founders = [
   { name: "Andreas Tunes Huse, ", url: "https://www.linkedin.com/in/andreas-huse-9ab151233/" },
   { name: "Jarle Aragon Halden, ", url: "https://www.linkedin.com/in/jarle-aragon-halden-4a9599291/" },
   { name: "Andreas Lind Benestad, ", url: "https://www.linkedin.com/in/andreas-lind-benestad-0059ab359/" },
-  { name: "Thomas Otterå Årland", url: "https://www.linkedin.com/in/thomas-%C3%A5rland-71a206334/" },
+  /* { name: "Thomas Otterå Årland", url: "https://www.linkedin.com/in/thomas-%C3%A5rland-71a206334/" }, */
 ];
 
 export default function Home() {
@@ -48,12 +48,12 @@ export default function Home() {
   const cloudAnimation = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 8, filter: "blur(4px)" },
-        animate: isReady
-          ? { opacity: 1, y: 0, filter: "blur(0px)" }
-          : undefined,
-        transition: { duration: 0.75, ease: [0, 0, 0.2, 1] as const },
-      };
+      initial: { opacity: 0, y: 8, filter: "blur(4px)" },
+      animate: isReady
+        ? { opacity: 1, y: 0, filter: "blur(0px)" }
+        : undefined,
+      transition: { duration: 0.75, ease: [0, 0, 0.2, 1] as const },
+    };
 
   return (
     <main className="min-h-dvh sm:h-dvh flex flex-col w-full overflow-y-auto sm:overflow-hidden relative pb-20 sm:pb-0">
@@ -105,17 +105,13 @@ export default function Home() {
             variants={prefersReducedMotion ? undefined : itemVariants}
             className="text-white/50 text-lg leading-[120%]"
           >
-            <span className="text-white">Cognitude Labs</span> is an applied AI research company building autonomous systems for learning. We build agents that integrate across systems, maintain persistent context, and adapt to individual learners to reduce epistemic uncertainty.
+            <span className="text-white">Cognitude Labs</span> is an applied AI research company focused on enhancing information management for knowledge-intensive professionals. We believe in building technology that truly addresses real-world challenges.
           </motion.p>
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
             className="text-white/50 text-lg leading-[120%]"
           >
-            In education, most AI tools remain stateless assistants: they forget context, operate
-            in isolation, and produce generic outputs. We build autonomous
-            agents with persistent state, cross-system integration, and
-            outcome-driven adaptation. This distinction defines the gap between
-            chat interfaces and agentic systems.
+            Our first prototype explored learning environments. Now, rather than rushing to build new solutions, we're taking time to deeply understand the challenges knowledge workers face daily. Through interviews and workflow analysis, we're identifying genuine pain points before developing tools to address them.
           </motion.p>
           <motion.p
             variants={prefersReducedMotion ? undefined : itemVariants}
@@ -134,24 +130,23 @@ export default function Home() {
                   href={founder.url}
                   onMouseEnter={() => setHoveredName(founder.name)}
                   onMouseLeave={() => setHoveredName(null)}
-                  className={`transition-colors duration-100 ${
-                    hoveredName && hoveredName !== founder.name
+                  className={`transition-colors duration-100 ${hoveredName && hoveredName !== founder.name
                       ? "text-white/50"
                       : "text-white"
-                  }`}
+                    }`}
                 >
                   {founder.name}
                 </a>
               </span>
             ))}
           </motion.p>
-          <motion.a
+          {/*           <motion.a
             variants={prefersReducedMotion ? undefined : itemVariants}
             href="https://www.alva.so"
             className="w-full h-8 bg-white text-base font-medium uppercase font-mono rounded-sm items-center flex justify-center mt-4 text-black hover:bg-white/80 transition-colors duration-300"
           >
             Go to Alva
-          </motion.a>
+          </motion.a> */}
         </div>
       </motion.div>
       <motion.div
